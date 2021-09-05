@@ -18,6 +18,11 @@ namespace RohdeSchwarzWebApp.Controllers
 
         public IActionResult Index() => View();
 
+        /// <summary>
+        /// Используем POST-запрос, так как сохраняем данные на "сервер" и проверяем целостность токена
+        /// </summary>
+        /// <param name="Model"></param>
+        /// <returns></returns>
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult SetAmperage(AmperageViewModel Model)
         {
@@ -28,6 +33,10 @@ namespace RohdeSchwarzWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Рендерим ответ от сервера на основную страницу с помощью частичного представления
+        /// </summary>
+        /// <returns>частичное представление с информацией о текущей силе тока источника</returns>
         public IActionResult GetAmperage()
         {
             return PartialView("Partial/_AmperagePartial", new AmperageViewModel
