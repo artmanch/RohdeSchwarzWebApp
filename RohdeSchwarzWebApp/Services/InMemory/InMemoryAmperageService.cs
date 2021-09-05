@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RohdeSchwarzWebApp.Data;
 using RohdeSchwarzWebApp.Services.Interfaces;
 
 namespace RohdeSchwarzWebApp.Services.InMemory
@@ -6,11 +7,10 @@ namespace RohdeSchwarzWebApp.Services.InMemory
     public class InMemoryAmperageService : IAmperageService
     {
         private readonly ILogger<InMemoryAmperageService> _Logger;
-        private double Amperage { get; set; }
 
         public InMemoryAmperageService(ILogger<InMemoryAmperageService> Logger) => _Logger = Logger;
 
-        public double GetAmperage() => Amperage;
+        public double GetAmperage() => AmperageData.CurrentAmperage;
 
         public bool SetAmperage(double amperage)
         {
@@ -20,7 +20,7 @@ namespace RohdeSchwarzWebApp.Services.InMemory
                 return false;
             }
 
-            Amperage = amperage;
+            AmperageData.CurrentAmperage = amperage;
             _Logger.LogInformation($"Установлено новое значение силы тока устройства {amperage}");
 
             return true;
